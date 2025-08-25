@@ -34,21 +34,13 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Kufi+Arabic:wght@300;400;600;700&family=Playfair+Display:wght@500;600;700;800&display=swap" rel="stylesheet">
 
   <style>
-    html { scroll-behavior: smooth; cursor: none; }
+    html { scroll-behavior: smooth; }
     body { background: linear-gradient(180deg, #fdebf3 0%, #fff 45%, #fff 100%); }
     
     /* --- PRELOADER --- */
     #preloader { position: fixed; inset: 0; background-color: #fdebf3; z-index: 1000; display: flex; align-items: center; justify-content: center; transition: opacity 0.5s ease-out; }
     #preloader .loader-circle { width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(45deg, #f6b7d2, #e2649a); animation: pulse 1.5s infinite ease-in-out; }
     @keyframes pulse { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(0.8); opacity: 0.7; } }
-
-    /* --- CUSTOM CURSOR --- */
-    .cursor-dot, .cursor-circle { position: fixed; top: 0; left: 0; transform: translate(-50%, -50%); border-radius: 50%; pointer-events: none; z-index: 9999; }
-    .cursor-dot { width: 8px; height: 8px; background-color: #c7437e; }
-    .cursor-circle { width: 40px; height: 40px; border: 2px solid #c7437e; transition: transform 0.3s ease-out, width 0.3s ease-out, height 0.3s ease-out, border-color 0.3s ease-out; }
-    .cursor-circle.grow { transform: scale(1.5); border-color: #ee8cb6; }
-    .cursor-circle.hidden { display: none; }
-    a, button, [role="button"], input { cursor: none; }
 
     /* --- INTERACTION & ANIMATION STYLES --- */
     .link-underline { position: relative; }
@@ -83,10 +75,6 @@
 <body class="font-body text-ink/90" data-theme="light">
   <!-- Preloader -->
   <div id="preloader"><div class="loader-circle"></div></div>
-
-  <!-- Custom Cursor -->
-  <div class="cursor-dot"></div>
-  <div class="cursor-circle"></div>
 
   <!-- Top announcement bar -->
   <div class="hidden md:block bg-ink text-white text-sm">
@@ -383,26 +371,7 @@
         });
       };
 
-      // --- 2. CUSTOM CURSOR ---
-      const initCursor = () => {
-        const cursorDot = document.querySelector('.cursor-dot');
-        const cursorCircle = document.querySelector('.cursor-circle');
-        const interactiveElements = document.querySelectorAll('a, button, .group');
-
-        window.addEventListener('mousemove', e => {
-          cursorDot.style.left = `${e.clientX}px`;
-          cursorDot.style.top = `${e.clientY}px`;
-          cursorCircle.style.left = `${e.clientX}px`;
-          cursorCircle.style.top = `${e.clientY}px`;
-        });
-
-        interactiveElements.forEach(el => {
-          el.addEventListener('mouseenter', () => cursorCircle.classList.add('grow'));
-          el.addEventListener('mouseleave', () => cursorCircle.classList.remove('grow'));
-        });
-      };
-
-      // --- 3. ANIMATIONS (Scroll, Text, Parallax) ---
+      // --- 2. ANIMATIONS (Scroll, Text, Parallax) ---
       const initAnimations = () => {
         // Word animation for hero headline
         const headline = document.querySelector('.hero-headline');
@@ -430,7 +399,7 @@
         });
       };
 
-      // --- 4. HEADER STYLE ON SCROLL ---
+      // --- 3. HEADER STYLE ON SCROLL ---
       const initHeaderScroll = () => {
         const header = document.querySelector('header');
         window.addEventListener('scroll', () => {
@@ -438,7 +407,7 @@
         });
       };
       
-      // --- 5. LANGUAGE SWITCHER ---
+      // --- 4. LANGUAGE SWITCHER ---
       const initLangSwitcher = () => {
         const langEnBtn = document.getElementById('lang-en');
         const langArBtn = document.getElementById('lang-ar');
@@ -462,7 +431,7 @@
         switchLanguage(preferredLang);
       };
 
-      // --- 6. MOBILE MENU ---
+      // --- 5. MOBILE MENU ---
       const initMobileMenu = () => {
         const menuBtn = document.getElementById('menuBtn');
         const mobileSheet = document.getElementById('mobileSheet');
@@ -481,7 +450,7 @@
         });
       };
 
-      // --- 7. GALLERY LIGHTBOX ---
+      // --- 6. GALLERY LIGHTBOX ---
       const initGalleryLightbox = () => {
           const galleryGrid = document.getElementById('gallery-grid');
           if (!galleryGrid) return;
@@ -524,7 +493,6 @@
 
       // --- Initialize all modules ---
       initPreloader();
-      initCursor();
       initAnimations();
       initHeaderScroll();
       initLangSwitcher();
